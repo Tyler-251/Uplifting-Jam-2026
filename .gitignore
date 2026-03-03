@@ -1,5 +1,10 @@
 *
-
 !Assets/
+!Assets/**
 !Packages/
+!Packages/**
 !ProjectSettings/
+!ProjectSettings/**
+
+ProjectSettings/EditorBuildSettings.asset
+ProjectSettings/ShaderGraphSettings.asset
