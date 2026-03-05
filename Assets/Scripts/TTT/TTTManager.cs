@@ -11,12 +11,19 @@ public class TTTManager : MonoBehaviour
         activeBoard = new TTTBoard();
         TTTRenderer.instance.RefreshBoard(activeBoard);
     }
+    void Update()
+    {
+        if (currentTurn == Turn.Enemy)
+        {
+            var aiMove = TTTAI.GetAIPlacement(activeBoard, Piece.PieceType.O, .5f);
+            if (aiMove != (-1, -1))
+            {
+                PlaySpot(aiMove.row, aiMove.col);
+            }
+        }
+    }
     public void PlaySpot(int row, int col)
     {
-        Debug.Log($"Attempting to play at ({row}, {col})");
-        // if (currentTurn != Turn.Player)
-        //     return;
-        
         if (activeBoard.TryPlacePiece(row, col, currentTurn == Turn.Player ? Piece.PieceType.X : Piece.PieceType.O))
         {
             if (activeBoard.CheckWinner() == (currentTurn == Turn.Player ? Piece.PieceType.X : Piece.PieceType.O))
@@ -53,4 +60,7 @@ public class TTTManager : MonoBehaviour
     public void PlaySpot20() => PlaySpot(2, 0);
     public void PlaySpot21() => PlaySpot(2, 1);
     public void PlaySpot22() => PlaySpot(2, 2);
+    
+    //
+
 }
