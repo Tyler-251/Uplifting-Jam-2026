@@ -2,16 +2,19 @@ using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
+    [SerializeField] private InputActionReference advanceDialogueAction;
     
     private Message currentMessage;
     private MessageSO currentMessageSO;
     private AudioSource audioSource;
     private Coroutine currentGurbleCoroutine;
+    private bool skipRequested;
 
     [SerializeField] private TMP_Text titleTextField;
     [SerializeField] private TMP_Text messageTextField;
@@ -38,6 +41,33 @@ public class DialogueManager : MonoBehaviour
         }
         EnsurePanelInactive();
     }
+
+    void OnEnable()
+    {
+        if (advanceDialogueAction != null && advanceDialogueAction.action != null)
+        {
+            advanceDialogueAction.action.performed += OnAdvanceDialoguePerformed;
+            advanceDialogueAction.action.Enable();
+        }
+    }
+
+    void OnDisable()
+    {
+        if (advanceDialogueAction != null && advanceDialogueAction.action != null)
+        {
+            advanceDialogueAction.action.performed -= OnAdvanceDialoguePerformed;
+            advanceDialogueAction.action.Disable();
+        }
+    }
+
+    private void OnAdvanceDialoguePerformed(InputAction.CallbackContext context)
+    {
+        if (currentGurbleCoroutine != null)
+        {
+            skipRequested = true;
+        }
+    }
+
     void EnsurePanelActive()
     {
         if (dialoguePanel != null && !dialoguePanel.activeSelf)
@@ -57,6 +87,8 @@ public class DialogueManager : MonoBehaviour
             StopCoroutine(currentGurbleCoroutine);
             currentGurbleCoroutine = null;
         }
+
+        skipRequested = false;
     }
 
     /// <summary>
@@ -76,6 +108,8 @@ public class DialogueManager : MonoBehaviour
         {
             StopCoroutine(currentGurbleCoroutine);
         }
+
+        skipRequested = false;
 
         currentMessage = message;
 
@@ -117,11 +151,19 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator GurbleText(string fullText, AudioClip gurbleClip)
     {
         messageTextField.text = "";
+        HideChoiceButtons();
+        
         float timeBetweenChars = 1f / charactersPerSecond;
         float timeSinceLastGurble = 0f;
 
         for (int i = 0; i <= fullText.Length; i++)
         {
+            if (skipRequested)
+            {
+                messageTextField.text = fullText;
+                break;
+            }
+
             messageTextField.text = fullText.Substring(0, i);
 
             // Play gurble sound at intervals (skip spaces)
@@ -140,7 +182,25 @@ public class DialogueManager : MonoBehaviour
                 timeSinceLastGurble += timeBetweenChars;
             }
         }
+
+        skipRequested = false;
+        UpdateChoiceButtons();
         currentGurbleCoroutine = null;
+    }
+
+    /// <summary>
+    /// Hides all choice buttons
+    /// </summary>
+    private void HideChoiceButtons()
+    {
+        Button[] buttons = { button1, button2, button3 };
+        foreach (Button button in buttons)
+        {
+            if (button != null)
+            {
+                button.gameObject.SetActive(false);
+            }
+        }
     }
 
     /// <summary>
@@ -160,6 +220,8 @@ public class DialogueManager : MonoBehaviour
         {
             StopCoroutine(currentGurbleCoroutine);
         }
+
+        skipRequested = false;
 
         currentMessageSO = messageSO;
         currentMessage = null; // Clear old message
@@ -190,9 +252,6 @@ public class DialogueManager : MonoBehaviour
         {
             profilePictureField.sprite = messageSO.profilePicture;
         }
-
-        // Update choice buttons
-        UpdateChoiceButtons();
 
         // Start gurbling the text
         if (messageTextField != null)

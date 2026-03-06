@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69498aa934a04754eae86e5d7cd821a5, type: 3}
+  m_Name: Init0
+  m_EditorClassIdentifier: Assembly-CSharp::MessageSO
+  speakerName: You
+  messageText: 'Just another day at the widget factory... '
+  profilePicture: {fileID: -4766380459827453439, guid: bfb80309391be9042a1a4f01523b2404, type: 3}
+  gurbleClip: {fileID: 8300000, guid: 72d1da1fdd67e7a42a884f04271daae5, type: 3}
+  choices:
+  - choiceText: '*Sigh*'
+    onChoose:
+      m_PersistentCalls:
+        m_Calls: []
+    nextMessage: {fileID: 11400000, guid: 56432051078b2844f8a14912684103d5, type: 2}
