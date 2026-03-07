@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -34,6 +35,9 @@ public class MessageSO : ScriptableObject
     
     [Tooltip("The speaker's profile picture")]
     public Sprite profilePicture;
+
+    [Tooltip("An optional graphic to display alongside the message")]
+    public Sprite graphicPicture;
     
     [Header("Audio")]
     [Tooltip("The gurble audio clip to play while displaying text")]

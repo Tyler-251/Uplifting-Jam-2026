@@ -15,6 +15,7 @@ MonoBehaviour:
   speakerName: You
   messageText: 'Just another day at the widget factory... '
   profilePicture: {fileID: -4766380459827453439, guid: bfb80309391be9042a1a4f01523b2404, type: 3}
+  graphicPicture: {fileID: -3919701687602107211, guid: bea733e5feb39d14da583047f04c3dcb, type: 3}
   gurbleClip: {fileID: 8300000, guid: 72d1da1fdd67e7a42a884f04271daae5, type: 3}
   choices:
   - choiceText: '*Sigh*'
