@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+// TODO: Add view panel for showing scenery captures
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
@@ -19,10 +20,12 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TMP_Text titleTextField;
     [SerializeField] private TMP_Text messageTextField;
     [SerializeField] private Image profilePictureField;
+    [SerializeField] private Image graphicPictureField;
     [SerializeField] private Button button1;
     [SerializeField] private Button button2;
     [SerializeField] private Button button3;
     [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] private GameObject graphicPanel;
     
     [Header("Gurble Settings")]
     [SerializeField] private float charactersPerSecond = 20f;
@@ -40,6 +43,7 @@ public class DialogueManager : MonoBehaviour
             Destroy(gameObject);
         }
         EnsurePanelInactive();
+        EnsureGraphicPanelInactive();
     }
 
     void OnEnable()
@@ -90,60 +94,74 @@ public class DialogueManager : MonoBehaviour
 
         skipRequested = false;
     }
-
-    /// <summary>
-    /// Plays a dialogue message and displays its choices
-    /// </summary>
-    /// <param name="message">The message to display</param>
-    public void PlayMessage(Message message)
+    void EnsureGraphicPanelInactive()
     {
-        if (message == null)
+        if (graphicPanel != null && graphicPanel.activeSelf)
         {
-            Debug.LogWarning("Attempted to play null message");
-            return;
-        }
-
-        // Stop any existing gurble coroutine
-        if (currentGurbleCoroutine != null)
-        {
-            StopCoroutine(currentGurbleCoroutine);
-        }
-
-        skipRequested = false;
-
-        currentMessage = message;
-
-        // Display the message
-        Debug.Log($"[{message.Name}]: {message.Text}");
-
-        // Log available choices
-        if (message.Choices != null && message.Choices.Count > 0)
-        {
-            Debug.Log($"Available choices: {message.Choices.Count}");
-            for (int i = 0; i < message.Choices.Count; i++)
-            {
-                Debug.Log($"  {i + 1}. {message.Choices[i].Text}");
-            }
-        }
-
-        // Update title
-        if (titleTextField != null)
-        {
-            titleTextField.text = message.Name;
-        }
-
-        // Update profile picture
-        if (profilePictureField != null)
-        {
-            profilePictureField.sprite = message.ProfilePicture;
-        }
-
-        // Start gurbling the text
-        if (messageTextField != null)
-        {
-            currentGurbleCoroutine = StartCoroutine(GurbleText(message.Text, message.Gurble));
+            graphicPanel.SetActive(false);
         }
     }
+    void EnsureGraphicPanelActive()
+    {
+        if (graphicPanel != null && !graphicPanel.activeSelf)
+        {
+            graphicPanel.SetActive(true);
+        }
+    }
+
+    // /// <summary>
+    // /// Plays a dialogue message and displays its choices
+    // /// </summary>
+    // /// <param name="message">The message to display</param>
+    // public void PlayMessage(Message message)
+    // {
+    //     if (message == null)
+    //     {
+    //         Debug.LogWarning("Attempted to play null message");
+    //         return;
+    //     }
+
+    //     // Stop any existing gurble coroutine
+    //     if (currentGurbleCoroutine != null)
+    //     {
+    //         StopCoroutine(currentGurbleCoroutine);
+    //     }
+
+    //     skipRequested = false;
+
+    //     currentMessage = message;
+
+    //     // Display the message
+    //     Debug.Log($"[{message.Name}]: {message.Text}");
+
+    //     // Log available choices
+    //     if (message.Choices != null && message.Choices.Count > 0)
+    //     {
+    //         Debug.Log($"Available choices: {message.Choices.Count}");
+    //         for (int i = 0; i < message.Choices.Count; i++)
+    //         {
+    //             Debug.Log($"  {i + 1}. {message.Choices[i].Text}");
+    //         }
+    //     }
+
+    //     // Update title
+    //     if (titleTextField != null)
+    //     {
+    //         titleTextField.text = message.Name;
+    //     }
+
+    //     // Update profile picture
+    //     if (profilePictureField != null)
+    //     {
+    //         profilePictureField.sprite = message.ProfilePicture;
+    //     }
+
+    //     // Start gurbling the text
+    //     if (messageTextField != null)
+    //     {
+    //         currentGurbleCoroutine = StartCoroutine(GurbleText(message.Text, message.Gurble));
+    //     }
+    // }
 
     /// <summary>
     /// Coroutine that displays text character by character with gurble audio
@@ -251,6 +269,20 @@ public class DialogueManager : MonoBehaviour
         if (profilePictureField != null)
         {
             profilePictureField.sprite = messageSO.profilePicture;
+        }
+
+        // Update graphic picture
+        if (graphicPictureField != null)
+        {
+            if (messageSO.graphicPicture != null)
+            {
+                EnsureGraphicPanelActive();
+            }
+            else
+            {
+                EnsureGraphicPanelInactive();
+            }
+            graphicPictureField.sprite = messageSO.graphicPicture;
         }
 
         // Start gurbling the text
