@@ -32,12 +32,16 @@ public class MessageSO : ScriptableObject
     [Tooltip("The dialogue text to display")]
     [TextArea(3, 10)]
     public string messageText;
-    
+
+    [Header("Visuals")]
     [Tooltip("The speaker's profile picture")]
     public Sprite profilePicture;
 
     [Tooltip("An optional graphic to display alongside the message")]
     public Sprite graphicPicture;
+
+    [Tooltip("Inverse toggle to raycast target on backpanel")]
+    public bool clickThrough = false;
     
     [Header("Audio")]
     [Tooltip("The gurble audio clip to play while displaying text")]

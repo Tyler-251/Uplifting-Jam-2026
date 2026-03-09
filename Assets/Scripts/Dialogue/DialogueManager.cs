@@ -9,6 +9,13 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
+    public static void PlayAudioClip(AudioClip clip)
+    {
+        if (instance != null)
+        {
+            instance.PlayClip(clip);
+        }
+    }
     [SerializeField] private InputActionReference advanceDialogueAction;
     
     private Message currentMessage;
@@ -26,6 +33,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Button button3;
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private GameObject graphicPanel;
+    [SerializeField] private GameObject backPanel;
     
     [Header("Gurble Settings")]
     [SerializeField] private float charactersPerSecond = 20f;
@@ -85,6 +93,9 @@ public class DialogueManager : MonoBehaviour
         {
             dialoguePanel.SetActive(false);
         }
+
+        // When dialogue closes, do not block clicks behind the panel.
+        BlockRaycasts(false);
         
         if (currentGurbleCoroutine != null)
         {
@@ -106,6 +117,18 @@ public class DialogueManager : MonoBehaviour
         if (graphicPanel != null && !graphicPanel.activeSelf)
         {
             graphicPanel.SetActive(true);
+        }
+    }
+
+    void BlockRaycasts(bool value)
+    {
+        if (backPanel != null)
+        {
+            Image image = backPanel.GetComponent<Image>();
+            if (image != null)
+            {
+                image.raycastTarget = value;
+            }
         }
     }
 
@@ -245,6 +268,7 @@ public class DialogueManager : MonoBehaviour
         currentMessage = null; // Clear old message
 
         EnsurePanelActive();
+        BlockRaycasts(!messageSO.clickThrough);
 
         // Display the message
         Debug.Log($"[{messageSO.speakerName}]: {messageSO.messageText}");
@@ -358,6 +382,14 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.Log("End of dialogue tree");
             EnsurePanelInactive();
+        }
+    }
+
+    public void PlayClip(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
         }
     }
 }
