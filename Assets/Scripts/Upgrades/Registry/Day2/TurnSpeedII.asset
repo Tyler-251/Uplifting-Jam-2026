@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64addfd605424b419c547609c6ac00b, type: 3}
+  m_Name: TurnSpeedII
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeSO
+  category: 0
+  type: 0
+  icon: {fileID: -5891973374340002633, guid: 3067627f62050ae4089cc9a0ff6a1ca6, type: 3}
+  upgradeName: Turn Speed II
+  description: '-0.2 seconds to the old man''s move timer. '
+  cost: 55
+  value: -0.2
+  progressionTags: 
+  xosRequirement: 0
+  optionalMessageTrigger: {fileID: 11400000, guid: c827a5c00b8567b40a0c364bacf08b91, type: 2}
+  requiredUpgrades:
+  - {fileID: 11400000, guid: 6b206362b3e87484a98b5dee4c6b237c, type: 2}
+  requiredDays: 02000000030000000400000005000000
+  requiredProgressionTags: []

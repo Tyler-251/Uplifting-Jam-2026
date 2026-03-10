@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
+    public UnityEvent onDialogueSequenceComplete = new UnityEvent();
+
     public static void PlayAudioClip(AudioClip clip)
     {
         if (instance != null)
@@ -328,6 +331,8 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            onDialogueSequenceComplete.Invoke();
+            onDialogueSequenceComplete.RemoveAllListeners();
             Debug.Log("End of dialogue tree");
             EnsurePanelInactive();
         }

@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69498aa934a04754eae86e5d7cd821a5, type: 3}
-  m_Name: Init0
+  m_Name: TurnSpeedII
   m_EditorClassIdentifier: Assembly-CSharp::MessageSO
-  speakerName: You
-  messageText: 'Just another day at the widget factory... '
-  profilePicture: {fileID: -3919701687602107211, guid: bea733e5feb39d14da583047f04c3dcb, type: 3}
-  graphicPicture: {fileID: -6912467499317197855, guid: 0258c90fe3bfe894aaa065ee3fb1eb75, type: 3}
+  speakerName: Old Man
+  messageText: Be nicer to your elders! I can't move as fast as I used to, you know.
+  profilePicture: {fileID: -1920826564622356544, guid: 42e0ccb7c033c0347be0db5d51dea375, type: 3}
+  graphicPicture: {fileID: 0}
+  clickThrough: 0
   gurbleClip: {fileID: 8300000, guid: 72d1da1fdd67e7a42a884f04271daae5, type: 3}
   choices:
-  - choiceText: '*Sigh*'
+  - choiceText: Ok fine, no more speed upgrades.
     onChoose:
       m_PersistentCalls:
         m_Calls: []
-    nextMessage: {fileID: 11400000, guid: 56432051078b2844f8a14912684103d5, type: 2}
+    nextMessage: {fileID: 0}

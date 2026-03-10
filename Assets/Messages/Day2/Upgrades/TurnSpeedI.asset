@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69498aa934a04754eae86e5d7cd821a5, type: 3}
-  m_Name: Init1
+  m_Name: TurnSpeedI
   m_EditorClassIdentifier: Assembly-CSharp::MessageSO
-  speakerName: You
-  messageText: 'Just need to walk on home. Mat told me the elevator''s broken again. '
-  profilePicture: {fileID: -4766380459827453439, guid: bfb80309391be9042a1a4f01523b2404, type: 3}
+  speakerName: Old Man
+  messageText: Alright, alright, I'll hurry up.
+  profilePicture: {fileID: -1920826564622356544, guid: 42e0ccb7c033c0347be0db5d51dea375, type: 3}
+  graphicPicture: {fileID: 0}
+  clickThrough: 0
   gurbleClip: {fileID: 8300000, guid: 72d1da1fdd67e7a42a884f04271daae5, type: 3}
   choices:
-  - choiceText: '*Another Sigh*'
+  - choiceText: Thanks.
     onChoose:
       m_PersistentCalls:
         m_Calls: []
