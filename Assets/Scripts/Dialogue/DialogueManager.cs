@@ -52,6 +52,7 @@ public class DialogueManager : MonoBehaviour
         }
         EnsurePanelInactive();
         EnsureGraphicPanelInactive();
+        BlockRaycasts(false);
     }
 
     void OnEnable()
@@ -132,59 +133,6 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // /// <summary>
-    // /// Plays a dialogue message and displays its choices
-    // /// </summary>
-    // /// <param name="message">The message to display</param>
-    // public void PlayMessage(Message message)
-    // {
-    //     if (message == null)
-    //     {
-    //         Debug.LogWarning("Attempted to play null message");
-    //         return;
-    //     }
-
-    //     // Stop any existing gurble coroutine
-    //     if (currentGurbleCoroutine != null)
-    //     {
-    //         StopCoroutine(currentGurbleCoroutine);
-    //     }
-
-    //     skipRequested = false;
-
-    //     currentMessage = message;
-
-    //     // Display the message
-    //     Debug.Log($"[{message.Name}]: {message.Text}");
-
-    //     // Log available choices
-    //     if (message.Choices != null && message.Choices.Count > 0)
-    //     {
-    //         Debug.Log($"Available choices: {message.Choices.Count}");
-    //         for (int i = 0; i < message.Choices.Count; i++)
-    //         {
-    //             Debug.Log($"  {i + 1}. {message.Choices[i].Text}");
-    //         }
-    //     }
-
-    //     // Update title
-    //     if (titleTextField != null)
-    //     {
-    //         titleTextField.text = message.Name;
-    //     }
-
-    //     // Update profile picture
-    //     if (profilePictureField != null)
-    //     {
-    //         profilePictureField.sprite = message.ProfilePicture;
-    //     }
-
-    //     // Start gurbling the text
-    //     if (messageTextField != null)
-    //     {
-    //         currentGurbleCoroutine = StartCoroutine(GurbleText(message.Text, message.Gurble));
-    //     }
-    // }
 
     /// <summary>
     /// Coroutine that displays text character by character with gurble audio

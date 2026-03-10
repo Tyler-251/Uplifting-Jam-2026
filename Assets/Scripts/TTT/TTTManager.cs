@@ -1,10 +1,14 @@
 using UnityEngine;
+using System.Collections;
 
 public class TTTManager : MonoBehaviour
 {
     public enum Turn { None, Player, Enemy }
+    public float oldManMoveDelay = 1.0f;
+
     private TTTBoard activeBoard;
-        private Turn currentTurn;
+    private Turn currentTurn;
+    private bool isEnemyTakingTurn;
     void Start()
     {
         currentTurn = Random.value < 0.5f ? Turn.Player : Turn.Enemy;
@@ -13,14 +17,30 @@ public class TTTManager : MonoBehaviour
     }
     void Update()
     {
-        if (currentTurn == Turn.Enemy)
+        if (currentTurn == Turn.Enemy && !isEnemyTakingTurn)
         {
-            var aiMove = TTTAI.GetAIPlacement(activeBoard, Piece.PieceType.O, .5f);
-            if (aiMove != (-1, -1))
-            {
-                PlaySpot(aiMove.row, aiMove.col);
-            }
+            StartCoroutine(EnemyPlaceChipWithDelay());
         }
+    }
+
+    public IEnumerator EnemyPlaceChipWithDelay()
+    {
+        isEnemyTakingTurn = true;
+        yield return new WaitForSeconds(oldManMoveDelay);
+
+        if (currentTurn != Turn.Enemy)
+        {
+            isEnemyTakingTurn = false;
+            yield break;
+        }
+
+        var aiMove = TTTAI.GetAIPlacement(activeBoard, Piece.PieceType.O, .5f);
+        if (aiMove != (-1, -1))
+        {
+            PlaySpot(aiMove.row, aiMove.col);
+        }
+
+        isEnemyTakingTurn = false;
     }
     public void PlaySpot(int row, int col)
     {

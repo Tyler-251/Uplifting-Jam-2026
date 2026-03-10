@@ -375,6 +375,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JsonToSOChainTool
   inputField: {fileID: 2105375694}
+  speakerAssets:
+  - speakerName: You
+    profilePicture: {fileID: -4766380459827453439, guid: bfb80309391be9042a1a4f01523b2404, type: 3}
+    audioBlurb: {fileID: 8300000, guid: 0a8a36321da49c54eac7e6a497e018a6, type: 3}
+  - speakerName: Old Man
+    profilePicture: {fileID: -1920826564622356544, guid: 42e0ccb7c033c0347be0db5d51dea375, type: 3}
+    audioBlurb: {fileID: 8300000, guid: 72d1da1fdd67e7a42a884f04271daae5, type: 3}
+  - speakerName: Second-Person Emniscient Narrator
+    profilePicture: {fileID: -3919701687602107211, guid: bea733e5feb39d14da583047f04c3dcb, type: 3}
+    audioBlurb: {fileID: 0}
 --- !u!1 &746425068
 GameObject:
   m_ObjectHideFlags: 0
