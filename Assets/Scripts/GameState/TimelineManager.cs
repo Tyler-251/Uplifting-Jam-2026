@@ -69,6 +69,7 @@ public class TimelineManager : MonoBehaviour
         {
             tttManager.gameObject.SetActive(true);
             tttManager.StartGame();
+            MusicAudioManager.instance.FadeInMainMusic();
         });
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Serialization;
 using System.Collections;
 using TMPro;
 
@@ -14,6 +15,17 @@ public class TTTManager : MonoBehaviour
     [SerializeField] private GameObject youThinker;
     [SerializeField] private GameObject oldManThinker;
     [SerializeField] private VertBarBehavior vertBarBehavior;
+    [Header("SFX")]
+    [SerializeField] private AudioClip xplayed;
+    [SerializeField] private AudioClip oplayed;
+    [SerializeField] private AudioClip xwon;
+    [FormerlySerializedAs("ywon")]
+    [SerializeField] private AudioClip owon;
+    [SerializeField] private float xplayedVolume = 0.6f;
+    [SerializeField] private float oplayedVolume = 0.6f;
+    [SerializeField] private float xwonVolume = 1.0f;
+    [FormerlySerializedAs("ywonVolume")]
+    [SerializeField] private float owonVolume = 1.0f;
     [Header("Pot Display")]
     [SerializeField] private TMP_Text potText;
     [SerializeField] private Image potImage;
@@ -138,8 +150,15 @@ public class TTTManager : MonoBehaviour
             return;
         }
 
-        if (activeBoard.TryPlacePiece(row, col, currentTurn == Turn.Player ? Piece.PieceType.X : Piece.PieceType.O))
+        Piece.PieceType playedPiece = currentTurn == Turn.Player ? Piece.PieceType.X : Piece.PieceType.O;
+
+        if (activeBoard.TryPlacePiece(row, col, playedPiece))
         {
+            PlaySfx(
+                playedPiece == Piece.PieceType.X ? xplayed : oplayed,
+                playedPiece == Piece.PieceType.X ? xplayedVolume : oplayedVolume
+            );
+
             if (activeBoard.TryGetWinningLine(out var winStart, out var winEnd, out var winner))
             {
                 ResolveWin(winner);
@@ -182,6 +201,10 @@ public class TTTManager : MonoBehaviour
     private void ResolveWin(Piece.PieceType winner)
     {
         RecordMatchResult(isDraw: false, winner: winner);
+        PlaySfx(
+            winner == Piece.PieceType.X ? xwon : owon,
+            winner == Piece.PieceType.X ? xwonVolume : owonVolume
+        );
 
         if (winner != Piece.PieceType.X)
         {
@@ -199,6 +222,16 @@ public class TTTManager : MonoBehaviour
 
         potAmount = 0;
         UpdatePotDisplay();
+    }
+
+    private void PlaySfx(AudioClip clip, float volume = 1.0f)
+    {
+        if (clip == null || SFXAudioManager.instance == null)
+        {
+            return;
+        }
+
+        SFXAudioManager.instance.PlayClip(clip, volume);
     }
 
     private void RecordMatchResult(bool isDraw, Piece.PieceType winner)
