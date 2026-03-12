@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69498aa934a04754eae86e5d7cd821a5, type: 3}
-  m_Name: Message_10
+  m_Name: Message_0
   m_EditorClassIdentifier: Assembly-CSharp::MessageSO
   speakerName: Old Man
-  messageText: Perfect, let's get started on our first match.
+  messageText: 'Well looky there! You managed to beat me! I guess you can get on
+    your way now. Be safe out there, kid. '
   profilePicture: {fileID: -1920826564622356544, guid: 42e0ccb7c033c0347be0db5d51dea375, type: 3}
   graphicPicture: {fileID: 0}
   clickThrough: 0
   gurbleClip: {fileID: 8300000, guid: 72d1da1fdd67e7a42a884f04271daae5, type: 3}
   choices:
-  - choiceText: First match? How many are we gonna play?
+  - choiceText: Ok
     onChoose:
       m_PersistentCalls:
         m_Calls: []
-    nextMessage: {fileID: 11400000, guid: 1c2fadb149301e44b9ea325fa10fde43, type: 2}
+    nextMessage: {fileID: 11400000, guid: a23d29307237782478b6117a9b48e7f0, type: 2}

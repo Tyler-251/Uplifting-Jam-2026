@@ -25,7 +25,7 @@ public class ShopManager : MonoBehaviour
     public bool showShopPanel = false;
     public bool showStatsPanel = false;
     [Header("Player Stats")]
-    [SerializeField] private int xos = 0;
+    [SerializeField] public int xos = 0;
 
     void Awake()
     {
@@ -75,6 +75,21 @@ public class ShopManager : MonoBehaviour
 
         ShopButton.SetActive(showShopPanel);
         StatsButton.SetActive(showShopPanel && showStatsPanel);
+    }
+
+    public void AddXos(int amount)
+    {
+        xos += amount;
+    }
+
+    public bool SpendXos(int amount)
+    {
+        if (xos >= amount)
+        {
+            xos -= amount;
+            return true;
+        }
+        return false;
     }
 
     public void RenderUpgrades()

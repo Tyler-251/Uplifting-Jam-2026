@@ -14,17 +14,39 @@ public class VertBarBehavior : MonoBehaviour
     public TMP_Text bestOfText;
     public TMP_Text xWinsText;
     public TMP_Text oWinsText;
-    float xWins = 4;
-    float oWins = 4;
-    float bestOf = 8;
+    public int xWins = 0;
+    public int oWins = 0;
+    public int bestOf = 1;
+    public int draws = 0;
+    public int totalGames = 0;
 
+    public void EnableChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+    }
 
+    public void DisableChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+    }
+
+    public void NextBestOf()
+    {
+        bestOf += 2;
+        RenderBar();
+    }
 
     public void RenderBar()
     {
         float totalHeight = (fullBar.GetComponent<RectTransform>().rect.height)*.98f;
-        float xratio = xWins / bestOf;
-        float oratio = oWins / bestOf;
+        float xratio = bestOf > 0 ? (float)xWins / bestOf : 0f;
+        float oratio = bestOf > 0 ? (float)oWins / bestOf : 0f;
         float xHeight = totalHeight * xratio;
         float oHeight = totalHeight * oratio;
         xBar.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, xHeight);
@@ -38,12 +60,9 @@ public class VertBarBehavior : MonoBehaviour
             oBar.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 50f);
         }
 
-        oWinsText.text = "O Wins: " + oWins;
-        xWinsText.text = "X Wins: " + xWins;
-        bestOfText.text = "Best of: " + bestOf;
-
-
-
+        oWinsText.text = oWins.ToString();
+        xWinsText.text = xWins.ToString();
+        bestOfText.text = bestOf.ToString();
     }
 
 

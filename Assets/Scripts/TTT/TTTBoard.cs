@@ -137,6 +137,58 @@ public class TTTBoard
         
         return Piece.PieceType.None;
     }
+
+    public bool TryGetWinningLine(out Vector2Int start, out Vector2Int end, out Piece.PieceType winner)
+    {
+        // Rows
+        for (int row = 0; row < BOARD_SIZE; row++)
+        {
+            var piece = board[row, 0].Piece.Type;
+            if (CheckLine(piece, board[row, 1].Piece.Type, board[row, 2].Piece.Type))
+            {
+                start = new Vector2Int(row, 0);
+                end = new Vector2Int(row, 2);
+                winner = piece;
+                return true;
+            }
+        }
+
+        // Columns
+        for (int col = 0; col < BOARD_SIZE; col++)
+        {
+            var piece = board[0, col].Piece.Type;
+            if (CheckLine(piece, board[1, col].Piece.Type, board[2, col].Piece.Type))
+            {
+                start = new Vector2Int(0, col);
+                end = new Vector2Int(2, col);
+                winner = piece;
+                return true;
+            }
+        }
+
+        // Main diagonal
+        if (CheckLine(board[0, 0].Piece.Type, board[1, 1].Piece.Type, board[2, 2].Piece.Type))
+        {
+            start = new Vector2Int(0, 0);
+            end = new Vector2Int(2, 2);
+            winner = board[0, 0].Piece.Type;
+            return true;
+        }
+
+        // Anti-diagonal
+        if (CheckLine(board[0, 2].Piece.Type, board[1, 1].Piece.Type, board[2, 0].Piece.Type))
+        {
+            start = new Vector2Int(0, 2);
+            end = new Vector2Int(2, 0);
+            winner = board[0, 2].Piece.Type;
+            return true;
+        }
+
+        start = Vector2Int.zero;
+        end = Vector2Int.zero;
+        winner = Piece.PieceType.None;
+        return false;
+    }
     
     private bool CheckLine(Piece.PieceType a, Piece.PieceType b, Piece.PieceType c)
     {
@@ -154,6 +206,24 @@ public class TTTBoard
             }
         }
         return true;
+    }
+
+    public int GetPlacedPieceCount()
+    {
+        int count = 0;
+
+        for (int row = 0; row < BOARD_SIZE; row++)
+        {
+            for (int col = 0; col < BOARD_SIZE; col++)
+            {
+                if (!board[row, col].IsEmpty)
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
     }
     
     public void PrintBoard()

@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
     }
     [SerializeField] private InputActionReference advanceDialogueAction;
     
-    private Message currentMessage;
+    public Message currentMessage;
     private MessageSO currentMessageSO;
     private AudioSource audioSource;
     private Coroutine currentGurbleCoroutine;
@@ -221,19 +221,6 @@ public class DialogueManager : MonoBehaviour
         EnsurePanelActive();
         BlockRaycasts(!messageSO.clickThrough);
 
-        // Display the message
-        Debug.Log($"[{messageSO.speakerName}]: {messageSO.messageText}");
-
-        // Log available choices
-        if (messageSO.choices != null && messageSO.choices.Count > 0)
-        {
-            Debug.Log($"Available choices: {messageSO.choices.Count}");
-            for (int i = 0; i < messageSO.choices.Count; i++)
-            {
-                Debug.Log($"  {i + 1}. {messageSO.choices[i].choiceText}");
-            }
-        }
-
         // Update title
         if (titleTextField != null)
         {
@@ -333,7 +320,6 @@ public class DialogueManager : MonoBehaviour
         {
             onDialogueSequenceComplete.Invoke();
             onDialogueSequenceComplete.RemoveAllListeners();
-            Debug.Log("End of dialogue tree");
             EnsurePanelInactive();
         }
     }
