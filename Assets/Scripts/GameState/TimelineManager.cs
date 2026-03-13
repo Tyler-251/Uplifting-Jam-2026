@@ -5,6 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class TimelineManager : MonoBehaviour
 {
+    public static TimelineManager instance;
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public PlayerSaveData saveData;
     [SerializeField] private CurtainBehavior curtainBehavior;
     [SerializeField] private TTTManager tttManager;

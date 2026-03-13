@@ -20,7 +20,7 @@ MonoBehaviour:
   clickThrough: 0
   gurbleClip: {fileID: 0}
   choices:
-  - choiceText: 
+  - choiceText: '*Quack*'
     onChoose:
       m_PersistentCalls:
         m_Calls: []

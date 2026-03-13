@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 52.52661, y: -42.280262}
-  m_SizeDelta: {x: 305.0531, y: 19.121}
+  m_AnchoredPosition: {x: 52.52661, y: -52.56853}
+  m_SizeDelta: {x: 305.0531, y: 39.6974}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1577923342044351993
 CanvasRenderer:
@@ -213,6 +213,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fa71e5ce5a1bc419f7a252ef1b380d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeBehavior
+  image: {fileID: 7292484995392916599}
+  titleText: {fileID: 1672910610490759519}
+  descriptionText: {fileID: 1491174463289184827}
+  upgradeData: {fileID: 0}
+  purchaseButton: {fileID: 3787194644206183451}
+  costText: {fileID: 5848327039689396469}
+  cost: 0
 --- !u!1 &5315012726932114678
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,8 +525,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.3
-  m_fontSizeBase: 18.3
+  m_fontSize: 32.89
+  m_fontSizeBase: 32.89
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

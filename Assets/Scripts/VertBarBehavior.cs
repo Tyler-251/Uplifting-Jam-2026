@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class VertBarBehavior : MonoBehaviour
 {
@@ -39,6 +40,12 @@ public class VertBarBehavior : MonoBehaviour
     public void NextBestOf()
     {
         bestOf += 2;
+        StartCoroutine(WaitAndRender(1.5f));
+    }
+
+    private IEnumerator WaitAndRender(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
         RenderBar();
     }
 

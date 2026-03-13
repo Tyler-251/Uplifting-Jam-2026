@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
     public UnityEvent onDialogueSequenceComplete = new UnityEvent();
+    public bool IsDialogueOpen => dialoguePanel != null && dialoguePanel.activeSelf;
 
     public static void PlayAudioClip(AudioClip clip)
     {
@@ -136,6 +137,22 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void SetProfilePicture(Sprite profileSprite)
+    {
+        if (profilePictureField == null)
+        {
+            return;
+        }
+
+        profilePictureField.sprite = profileSprite;
+
+        Transform parentTransform = profilePictureField.transform.parent;
+        if (parentTransform != null)
+        {
+            parentTransform.gameObject.SetActive(profileSprite != null);
+        }
+    }
+
 
     /// <summary>
     /// Coroutine that displays text character by character with gurble audio
@@ -221,17 +238,14 @@ public class DialogueManager : MonoBehaviour
         EnsurePanelActive();
         BlockRaycasts(!messageSO.clickThrough);
 
-        // Update title
+        // Update title (hide name when no profile picture is present)
         if (titleTextField != null)
         {
-            titleTextField.text = messageSO.speakerName;
+            titleTextField.text = messageSO.profilePicture != null ? messageSO.speakerName : "";
         }
 
-        // Update profile picture
-        if (profilePictureField != null)
-        {
-            profilePictureField.sprite = messageSO.profilePicture;
-        }
+        // Update profile picture and hide/show its parent container
+        SetProfilePicture(messageSO.profilePicture);
 
         // Update graphic picture
         if (graphicPictureField != null)

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64addfd605424b419c547609c6ac00b, type: 3}
   m_Name: TrickinessII
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeSO
+  index: 1
   category: 0
   type: 1
   icon: {fileID: 21300000, guid: 27b61887538175f4481c03131a6684bb, type: 3}
@@ -21,9 +22,9 @@ MonoBehaviour:
   cost: 50
   value: 5
   progressionTags: 
+  xosRequirement: 0
   optionalMessageTrigger: {fileID: 11400000, guid: e176dc20043bcf842882fd94b339c303, type: 2}
   requiredUpgrades:
   - {fileID: 11400000, guid: 854e999de053a4f4fa1a77273c389688, type: 2}
   requiredDays: 02000000030000000400000005000000
-  xosRequirement: 0
   requiredProgressionTags: []

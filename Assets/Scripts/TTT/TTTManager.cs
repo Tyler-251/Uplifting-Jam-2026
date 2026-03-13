@@ -138,14 +138,25 @@ public class TTTManager : MonoBehaviour
         var aiMove = TTTAI.GetAIPlacement(activeBoard, Piece.PieceType.O, .5f);
         if (aiMove != (-1, -1))
         {
-            PlaySpot(aiMove.row, aiMove.col);
+            PlaySpotInternal(aiMove.row, aiMove.col, true);
         }
 
         isEnemyTakingTurn = false;
     }
     public void PlaySpot(int row, int col)
     {
+        PlaySpotInternal(row, col, false);
+    }
+
+    private void PlaySpotInternal(int row, int col, bool allowEnemyTurn)
+    {
         if (!hasGameStarted)
+        {
+            return;
+        }
+
+        // Ignore UI input unless it is the player's turn.
+        if (!allowEnemyTurn && currentTurn != Turn.Player)
         {
             return;
         }
@@ -298,9 +309,12 @@ public class TTTManager : MonoBehaviour
 
     private IEnumerator EndMatchRoutine()
     {
+        // Give timeline/dialogue systems a frame to react to match end.
+        yield return null;
+
         yield return new WaitForSeconds(postMatchPauseTime);
 
-        while (freezeBetweenMatches)
+        while (freezeBetweenMatches || (DialogueManager.instance != null && DialogueManager.instance.IsDialogueOpen))
         {
             yield return null;
         }

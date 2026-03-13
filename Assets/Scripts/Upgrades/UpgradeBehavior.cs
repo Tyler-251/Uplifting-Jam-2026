@@ -1,16 +1,31 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class UpgradeBehavior : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public Image image;
+    public TMP_Text titleText;
+    public TMP_Text descriptionText;
+    public UpgradeSO upgradeData;
+    public Button purchaseButton;
+    public TMP_Text costText;
+    public int cost;
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize(UpgradeSO upgrade)
     {
-        
+        upgradeData = upgrade;
+        image.sprite = upgrade.icon;
+        titleText.text = upgrade.upgradeName;
+        descriptionText.text = upgrade.description;
+        cost = upgrade.cost;
+        costText.text = cost.ToString();
+        purchaseButton.onClick.AddListener(PurchaseUpgrade);
+    }
+    void PurchaseUpgrade()
+    {
+        ShopManager.instance.SpendXos(cost);
+        ShopManager.instance.acquiredUpgrades.Add(upgradeData);
+        ShopManager.instance.RenderShopEnvironment();
     }
 }

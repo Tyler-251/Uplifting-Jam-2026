@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64addfd605424b419c547609c6ac00b, type: 3}
   m_Name: TurnSpeedII
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeSO
+  index: 3
   category: 0
   type: 0
   icon: {fileID: -5891973374340002633, guid: 3067627f62050ae4089cc9a0ff6a1ca6, type: 3}

@@ -19,7 +19,7 @@ MonoBehaviour:
   clickThrough: 0
   gurbleClip: {fileID: 8300000, guid: 72d1da1fdd67e7a42a884f04271daae5, type: 3}
   choices:
-  - choiceText: 
+  - choiceText: How are doing after your fall yesterday?
     onChoose:
       m_PersistentCalls:
         m_Calls: []
