@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.Overlays;
 
 public class UpgradeBehavior : MonoBehaviour
 {
@@ -24,8 +25,21 @@ public class UpgradeBehavior : MonoBehaviour
     }
     void PurchaseUpgrade()
     {
-        ShopManager.instance.SpendXos(cost);
-        ShopManager.instance.acquiredUpgrades.Add(upgradeData);
-        ShopManager.instance.RenderShopEnvironment();
+        if (ShopManager.instance.SpendXos(cost))
+        {
+            ShopManager.instance.acquiredUpgrades.Add(upgradeData);
+            ShopManager.instance.RenderShopEnvironment();
+            if (upgradeData.optionalMessageTrigger != null)
+            {
+                TTTManager.instance.freezeBetweenMatches = true;
+                DialogueManager.instance.PlayMessage(upgradeData.optionalMessageTrigger);
+                DialogueManager.instance.onDialogueSequenceComplete.AddListener(() =>
+                {
+                    TTTManager.instance.freezeBetweenMatches = false;
+                });
+            }
+            if (!TimelineManager.instance.saveData.unlockedUpgrades.Contains(upgradeData)) TimelineManager.instance.saveData.unlockedUpgrades.Add(upgradeData);
+            PlayerSaveDataManager.instance.SavePlayerData(TimelineManager.instance.saveData);
+        }
     }
 }

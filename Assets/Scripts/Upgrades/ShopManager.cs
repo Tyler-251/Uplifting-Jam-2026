@@ -130,6 +130,17 @@ public class ShopManager : MonoBehaviour
     public void RenderUpgrades()
     {
         Debug.Log("Rendering Upgrades...");
+
+        if (TimelineManager.instance != null && TimelineManager.instance.saveData != null) 
+        foreach (UpgradeSO upgrade in TimelineManager.instance.saveData.unlockedUpgrades)
+        {
+            if (!acquiredUpgrades.Contains(upgrade))
+            {
+                acquiredUpgrades.Add(upgrade);
+            }
+        }
+
+
         SortUpgrades();
         if (upgradesPanel == null) { Debug.Log("mk1: upgradesPanel is null"); return;}
         Transform contentTransform = upgradesPanel.transform.GetChild(0).GetChild(0);

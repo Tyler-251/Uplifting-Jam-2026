@@ -3,9 +3,22 @@ using UnityEngine.UI;
 using UnityEngine.Serialization;
 using System.Collections;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class TTTManager : MonoBehaviour
 {
+    public static TTTManager instance;
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public enum Turn { None, Player, Enemy }
     public float oldManMoveDelay = 1.0f;
     [SerializeField] private bool autoStartFirstMatch = false;
@@ -29,6 +42,7 @@ public class TTTManager : MonoBehaviour
     [Header("Pot Display")]
     [SerializeField] private TMP_Text potText;
     [SerializeField] private Image potImage;
+    [SerializeField] private Sprite fullestPotSprite;
     [SerializeField] private Sprite fullPotSprite;
     [SerializeField] private Sprite halfPotSprite;
     [SerializeField] private Sprite emptyPotSprite;
@@ -126,8 +140,29 @@ public class TTTManager : MonoBehaviour
             yield break;
         }
 
+        //Get enemy movespeed upgrades
+        float amtToAppendTurnSpeed = 0f;
+        foreach (UpgradeSO upgrade in ShopManager.instance.acquiredUpgrades)
+        {
+            if (upgrade.category == UpgradeCategory.TurnSpeed && upgrade.type == UpgradeType.Additive)
+            {
+                amtToAppendTurnSpeed += upgrade.value;
+            }
+        }
+
+        // Get trickiness upgrades
+        float amtToAppendTrickiness = 0f;
+        foreach (UpgradeSO upgrade in ShopManager.instance.acquiredUpgrades)        {
+            if (upgrade.category == UpgradeCategory.Trickiness && upgrade.type == UpgradeType.AdditiveMultiplier)
+            {
+                amtToAppendTrickiness += upgrade.value / 100f;
+            }
+        }
+        // calculate final trickiness multiplier
+        float difficultyHelper = (vertBarBehavior.xWins - vertBarBehavior.oWins) / 100f;
+
         isEnemyTakingTurn = true;
-        yield return new WaitForSeconds(oldManMoveDelay);
+        yield return new WaitForSeconds(oldManMoveDelay + amtToAppendTurnSpeed + difficultyHelper);
 
         if (currentTurn != Turn.Enemy)
         {
@@ -135,7 +170,7 @@ public class TTTManager : MonoBehaviour
             yield break;
         }
 
-        var aiMove = TTTAI.GetAIPlacement(activeBoard, Piece.PieceType.O, .5f);
+        var aiMove = TTTAI.GetAIPlacement(activeBoard, Piece.PieceType.O, .5f - amtToAppendTrickiness);
         if (aiMove != (-1, -1))
         {
             PlaySpotInternal(aiMove.row, aiMove.col, true);
@@ -289,6 +324,11 @@ public class TTTManager : MonoBehaviour
         }
 
         potImage.sprite = potAmount <= 9 ? halfPotSprite : fullPotSprite;
+        if (potAmount >= 32 && fullestPotSprite != null)
+        {
+            potImage.sprite = fullestPotSprite;
+        }
+
     }
 
     private void UpdateThinkers()

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64addfd605424b419c547609c6ac00b, type: 3}
   m_Name: TrickinessI
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeSO
+  index: 0
   category: 0
   type: 1
   icon: {fileID: 21300000, guid: 27b61887538175f4481c03131a6684bb, type: 3}
   upgradeName: Trickiness I
-  description: '+5% Trickiness: You''ve learned some more tricks. Give''s you a slight
-    edge against the old man.'
+  description: '+5% Trickiness: Gives you a slight edge against the old man.'
   cost: 30
   value: 5
   progressionTags: 
-  optionalMessageTrigger: {fileID: 0}
+  xosRequirement: 0
+  optionalMessageTrigger: {fileID: 11400000, guid: 31cf2863d17c4ce419aec58699ab8612, type: 2}
   requiredUpgrades: []
   requiredDays: 02000000030000000400000005000000
-  xosRequirement: 0
   requiredProgressionTags: []

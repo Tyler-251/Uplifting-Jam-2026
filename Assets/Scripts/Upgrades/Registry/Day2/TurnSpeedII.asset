@@ -17,9 +17,9 @@ MonoBehaviour:
   type: 0
   icon: {fileID: -5891973374340002633, guid: 3067627f62050ae4089cc9a0ff6a1ca6, type: 3}
   upgradeName: Turn Speed II
-  description: '-0.2 seconds to the old man''s move timer. '
-  cost: 55
-  value: -0.2
+  description: '-0.25 seconds to the old man''s move timer. '
+  cost: 45
+  value: -0.25
   progressionTags: 
   xosRequirement: 0
   optionalMessageTrigger: {fileID: 11400000, guid: c827a5c00b8567b40a0c364bacf08b91, type: 2}

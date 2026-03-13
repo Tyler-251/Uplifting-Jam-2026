@@ -8,6 +8,7 @@ using UnityEngine;
 /// 
 public enum UpgradeCategory
 {
+    DialogueTrigger,
     Trickiness,
     TurnSpeed,
 }

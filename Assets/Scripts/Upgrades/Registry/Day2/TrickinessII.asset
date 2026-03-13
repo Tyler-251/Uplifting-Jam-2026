@@ -17,8 +17,8 @@ MonoBehaviour:
   type: 1
   icon: {fileID: 21300000, guid: 27b61887538175f4481c03131a6684bb, type: 3}
   upgradeName: Trickiness II
-  description: '+5% Trickiness: You''ve learned even more tricks. Give''s you a slight
-    edge against the old man.'
+  description: '+5% Trickiness: Gives you a more of a slight edge against the old
+    man.'
   cost: 50
   value: 5
   progressionTags: 

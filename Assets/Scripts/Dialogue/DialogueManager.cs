@@ -29,6 +29,7 @@ public class DialogueManager : MonoBehaviour
     private bool skipRequested;
 
     [SerializeField] private TMP_Text titleTextField;
+    private Vector2 originalMessageTextPos;
     [SerializeField] private TMP_Text messageTextField;
     [SerializeField] private Image profilePictureField;
     [SerializeField] private Image graphicPictureField;
@@ -54,6 +55,10 @@ public class DialogueManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+            if (messageTextField != null)
+            {
+                originalMessageTextPos = messageTextField.rectTransform.anchoredPosition;
+            }
         EnsurePanelInactive();
         EnsureGraphicPanelInactive();
         BlockRaycasts(false);
@@ -151,6 +156,12 @@ public class DialogueManager : MonoBehaviour
         {
             parentTransform.gameObject.SetActive(profileSprite != null);
         }
+
+            if (messageTextField != null)
+            {
+                Vector2 offset = profileSprite == null ? new Vector2(-100f, 0f) : Vector2.zero;
+                messageTextField.rectTransform.anchoredPosition = originalMessageTextPos + offset;
+            }
     }
 
 

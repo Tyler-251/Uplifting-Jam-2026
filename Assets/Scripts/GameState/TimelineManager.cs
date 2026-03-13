@@ -156,7 +156,10 @@ public class TimelineManager : MonoBehaviour
         DialogueManager.instance.onDialogueSequenceComplete.AddListener(() =>
         {
             MusicAudioManager.instance.FadeInMainMusic();
-            tttManager.gameObject.SetActive(true);
+            foreach (var obj in stuffToHideDayTwo)
+            {
+                obj.SetActive(true);
+            }
             tttManager.StartGame();
         });
 
