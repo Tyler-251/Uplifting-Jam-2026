@@ -47,9 +47,7 @@ public class TimelineManager : MonoBehaviour
         }
     }
 
-    //
-    // DAY ONE
-    //
+#region DayOne
     [Header("Day One Dialogue")]
     [SerializeField] private MessageSO dayOneIntro;
     [SerializeField] private MessageSO postFirstMatchMessage;
@@ -125,16 +123,69 @@ public class TimelineManager : MonoBehaviour
             });
         }
     }
+#endregion
+
+#region DayTwo
 
     [Header("Day Two Dialogue")]
     [SerializeField] private MessageSO dayTwoIntro;
+    [SerializeField] private MessageSO dayTwoFirstDrawMessage;
+    [SerializeField] private MessageSO dayTwoFirstWinMessage;
+    [SerializeField] private MessageSO dayTwoSecondFirstWinMessage;
+    [SerializeField] private List<GameObject> stuffToHideDayTwo;
     private void StartDayTwo()
     {
         PlayerSaveDataManager.instance.SavePlayerData(saveData);
         curtainBehavior.OpenCurtain("Day Two", "5:00 PM", dayTwoIntro);
+        foreach (var obj in stuffToHideDayTwo)
+        {
+            obj.SetActive(false);
+        }
+        DialogueManager.instance.onDialogueSequenceComplete.AddListener(() =>
+        {
+            MusicAudioManager.instance.FadeInMainMusic();
+            tttManager.gameObject.SetActive(true);
+            tttManager.StartGame();
+        });
+
     }
+    // Day Two Update Flags
+    private bool dayTwoFirstWinCompleted = false;
+    private bool dayTwoFirstDrawCompleted = false;
     private void UpdateDayTwo()
     {
-        
+        // Progress Best-Of
+        if (vertBarBehavior.xWins == Mathf.CeilToInt(vertBarBehavior.bestOf/2f) || vertBarBehavior.oWins == Mathf.CeilToInt(vertBarBehavior.bestOf/2f))
+        {
+            vertBarBehavior.NextBestOf();
+        }
+
+        if (!dayTwoFirstDrawCompleted && vertBarBehavior.draws >= 1 && DialogueManager.instance.currentMessage == null)
+        {
+            dayTwoFirstDrawCompleted = true;
+            tttManager.freezeBetweenMatches = true;
+            DialogueManager.instance.PlayMessage(dayTwoFirstDrawMessage);
+            DialogueManager.instance.onDialogueSequenceComplete.AddListener(() =>
+            {
+                tttManager.freezeBetweenMatches = false;
+            });
+        }
+        else if (!dayTwoFirstWinCompleted && vertBarBehavior.xWins >= 1 && DialogueManager.instance.currentMessage == null)
+        {
+            dayTwoFirstWinCompleted = true;
+            tttManager.freezeBetweenMatches = true;
+            DialogueManager.instance.PlayMessage(dayTwoFirstWinMessage);
+            DialogueManager.instance.onDialogueSequenceComplete.AddListener(() =>
+            {
+                tttManager.freezeBetweenMatches = false;
+                // make shop visible
+                ShopManager.instance.showShopPanel = true;
+                ShopManager.instance.showXosCounter = true;
+                ShopManager.instance.RenderShopEnvironment();
+
+            });
+        }
+
     }
+#endregion
 }

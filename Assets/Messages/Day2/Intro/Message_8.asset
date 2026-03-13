@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69498aa934a04754eae86e5d7cd821a5, type: 3}
+  m_Name: Message_8
+  m_EditorClassIdentifier: Assembly-CSharp::MessageSO
+  speakerName: Old Man
+  messageText: Well, be honest with me, young one. What's keeping you from sitting
+    down and enjoying the wildlife...
+  profilePicture: {fileID: -1920826564622356544, guid: 42e0ccb7c033c0347be0db5d51dea375, type: 3}
+  graphicPicture: {fileID: 5756511054792151901, guid: d985677120968ab42bf8ef0d93ecc58d, type: 3}
+  clickThrough: 0
+  gurbleClip: {fileID: 8300000, guid: 72d1da1fdd67e7a42a884f04271daae5, type: 3}
+  choices:
+  - choiceText: It's a boring and repetitive game.
+    onChoose:
+      m_PersistentCalls:
+        m_Calls: []
+    nextMessage: {fileID: 11400000, guid: 0d701dfcfd64e1e44891f6a8972a8f31, type: 2}
+  - choiceText: '[Lie] I''ve got other important things to get to'
+    onChoose:
+      m_PersistentCalls:
+        m_Calls: []
+    nextMessage: {fileID: 11400000, guid: 880187ace90d56d4186138286513c296, type: 2}

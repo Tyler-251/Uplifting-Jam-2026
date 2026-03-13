@@ -8,10 +8,12 @@ public class CurtainBehavior : MonoBehaviour
     [SerializeField] private GameObject curtain;
     [SerializeField] private TMP_Text title;
     [SerializeField] private TMP_Text subTitle;
+    [SerializeField] private AudioClip bellToll;
 
     public void OpenCurtain(string curtainTitle, string subTitle, MessageSO messageToPlayAfterCurtainFade)
     {
         curtain.SetActive(true);
+        SFXAudioManager.instance.PlayClip(bellToll, .75f);
         title.text = curtainTitle;
         this.subTitle.text = subTitle;
         StartCoroutine(OpenCurtainCoroutine(messageToPlayAfterCurtainFade));

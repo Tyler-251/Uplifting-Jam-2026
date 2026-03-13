@@ -2527,7 +2527,11 @@ MonoBehaviour:
   postDrawMessage: {fileID: 11400000, guid: 44e25c69bdbce564a84887f5935e7bc1, type: 2}
   postBestOfThreeMessageWin: {fileID: 11400000, guid: b57f3e1ff8ea039488ff2a266ab9f047, type: 2}
   postBestOfThreeMessageLose: {fileID: 11400000, guid: 125ced341ae997a4f9b0b753d5ba753b, type: 2}
-  dayTwoIntro: {fileID: 0}
+  dayTwoIntro: {fileID: 11400000, guid: edf01c14a743db04694d7fd33efc746e, type: 2}
+  dayTwoFirstDrawMessage: {fileID: 11400000, guid: a75517ea7f221554fb22b02d9eb2ece6, type: 2}
+  dayTwoFirstWinMessage: {fileID: 11400000, guid: 0fb50487496635f4d91810a6680cbb90, type: 2}
+  dayTwoSecondFirstWinMessage: {fileID: 11400000, guid: 59862efd4b510cf418084d2938186469, type: 2}
+  stuffToHideDayTwo: []
 --- !u!4 &443814941
 Transform:
   m_ObjectHideFlags: 0
@@ -4736,7 +4740,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -6507,6 +6511,7 @@ MonoBehaviour:
   curtain: {fileID: 579868616}
   title: {fileID: 933391116}
   subTitle: {fileID: 166610509}
+  bellToll: {fileID: 8300000, guid: c5efff0e16f585547b08b83bab7946d6, type: 3}
 --- !u!1 &1353228261
 GameObject:
   m_ObjectHideFlags: 0
