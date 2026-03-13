@@ -24,6 +24,7 @@ public class DialogueManager : MonoBehaviour
     
     public Message currentMessage;
     private MessageSO currentMessageSO;
+    private UnityAction pendingSequenceCompleteCallback;
     private AudioSource audioSource;
     private Coroutine currentGurbleCoroutine;
     private bool skipRequested;
@@ -88,6 +89,20 @@ public class DialogueManager : MonoBehaviour
         {
             skipRequested = true;
         }
+        else if (currentMessageSO != null && (currentMessageSO.choices == null || currentMessageSO.choices.Count == 0))
+        {
+            CompleteDialogueSequence();
+        }
+    }
+
+    private void CompleteDialogueSequence()
+    {
+        pendingSequenceCompleteCallback?.Invoke();
+        pendingSequenceCompleteCallback = null;
+
+        onDialogueSequenceComplete.Invoke();
+        onDialogueSequenceComplete.RemoveAllListeners();
+        EnsurePanelInactive();
     }
 
     void EnsurePanelActive()
@@ -227,12 +242,17 @@ public class DialogueManager : MonoBehaviour
     /// Plays a MessageSO scriptable object dialogue
     /// </summary>
     /// <param name="messageSO">The MessageSO to display</param>
-    public void PlayMessage(MessageSO messageSO)
+    public void PlayMessage(MessageSO messageSO, UnityAction onSequenceComplete = null)
     {
         if (messageSO == null)
         {
             Debug.LogWarning("Attempted to play null MessageSO");
             return;
+        }
+
+        if (onSequenceComplete != null)
+        {
+            pendingSequenceCompleteCallback = onSequenceComplete;
         }
 
         // Stop any existing gurble coroutine
@@ -343,9 +363,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            onDialogueSequenceComplete.Invoke();
-            onDialogueSequenceComplete.RemoveAllListeners();
-            EnsurePanelInactive();
+            CompleteDialogueSequence();
         }
     }
 

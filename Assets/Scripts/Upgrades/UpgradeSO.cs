@@ -34,6 +34,7 @@ public class UpgradeSO : ScriptableObject
     public float value;
     public string progressionTags; // Comma-separated tags for progression requirements
     public int xosRequirement = 0;
+    public bool progressDay = false;
     public List<string> ProgressionTags => new List<string>(progressionTags.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(tag => tag.Trim()));
     public MessageSO optionalMessageTrigger = null;
     public List<UpgradeSO> requiredUpgrades = new List<UpgradeSO>();

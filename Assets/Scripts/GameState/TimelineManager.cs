@@ -37,6 +37,9 @@ public class TimelineManager : MonoBehaviour
             case 2:
                 StartDayTwo();
                 break;
+            case 3:
+                StartDayThree();
+                break;
             default:
                 // Handle unexpected day value
                 break;
@@ -52,6 +55,9 @@ public class TimelineManager : MonoBehaviour
                 break;
             case 2:
                 UpdateDayTwo();
+                break;
+            case 3:
+                UpdateDayThree();
                 break;
             default:
                 // Handle other days or unexpected values
@@ -202,5 +208,38 @@ public class TimelineManager : MonoBehaviour
         }
 
     }
+#endregion
+
+#region DayThree
+
+    [Header("Day Three Dialogue")]
+    [SerializeField] private MessageSO dayThreeIntro;
+    private void StartDayThree()
+    {
+        PlayerSaveDataManager.instance.SavePlayerData(saveData);
+        curtainBehavior.OpenCurtain("Day Three", "5:00 PM", dayThreeIntro);
+        foreach (var obj in stuffToHideDayTwo)
+        {
+            obj.SetActive(false);
+        }
+        DialogueManager.instance.onDialogueSequenceComplete.AddListener(() =>
+        {
+            MusicAudioManager.instance.FadeInMainMusic();
+            foreach (var obj in stuffToHideDayTwo)
+            {
+                obj.SetActive(true);
+            }
+            tttManager.StartGame();
+            ShopManager.instance.showShopPanel = true;
+            ShopManager.instance.showXosCounter = true;
+            ShopManager.instance.RenderShopEnvironment();
+        });
+    }
+
+    private void UpdateDayThree()
+    {
+        // TODO: Add Day Three update logic
+    }
+
 #endregion
 }

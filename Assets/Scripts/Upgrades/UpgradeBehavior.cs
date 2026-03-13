@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEditor.Overlays;
+using UnityEngine.SceneManagement;
 
 public class UpgradeBehavior : MonoBehaviour
 {
@@ -31,12 +32,20 @@ public class UpgradeBehavior : MonoBehaviour
             ShopManager.instance.RenderShopEnvironment();
             if (upgradeData.optionalMessageTrigger != null)
             {
-                TTTManager.instance.freezeBetweenMatches = true;
-                DialogueManager.instance.PlayMessage(upgradeData.optionalMessageTrigger);
-                DialogueManager.instance.onDialogueSequenceComplete.AddListener(() =>
+                DialogueManager.instance.PlayMessage(upgradeData.optionalMessageTrigger, () =>
                 {
-                    TTTManager.instance.freezeBetweenMatches = false;
+                    Debug.Log("test message trigger");
+                    if (upgradeData.progressDay)
+                    {
+                        TimelineManager.instance.saveData.currentDay++;
+                        PlayerSaveDataManager.instance.SavePlayerData(TimelineManager.instance.saveData);
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload scene to progress timeline
+                    }
                 });
+            }
+            else if (upgradeData.progressDay)
+            {
+                Debug.LogWarning($"Upgrade '{upgradeData.upgradeName}' has progressDay=true but no optionalMessageTrigger set. Day will not progress.");
             }
             if (!TimelineManager.instance.saveData.unlockedUpgrades.Contains(upgradeData)) TimelineManager.instance.saveData.unlockedUpgrades.Add(upgradeData);
             PlayerSaveDataManager.instance.SavePlayerData(TimelineManager.instance.saveData);

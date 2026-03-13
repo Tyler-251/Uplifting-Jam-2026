@@ -22,7 +22,8 @@ MonoBehaviour:
   value: 0
   progressionTags: 
   xosRequirement: 0
-  optionalMessageTrigger: {fileID: 0}
+  progressDay: 1
+  optionalMessageTrigger: {fileID: 11400000, guid: f8aa1009bf8b26e4e91ca1896cdb2dfd, type: 2}
   requiredUpgrades:
   - {fileID: 11400000, guid: 854e999de053a4f4fa1a77273c389688, type: 2}
   - {fileID: 11400000, guid: 6b206362b3e87484a98b5dee4c6b237c, type: 2}

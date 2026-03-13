@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69498aa934a04754eae86e5d7cd821a5, type: 3}
+  m_Name: Message_0
+  m_EditorClassIdentifier: Assembly-CSharp::MessageSO
+  speakerName: Old Man
+  messageText: So, what did you think of my house rules?
+  profilePicture: {fileID: -1920826564622356544, guid: 42e0ccb7c033c0347be0db5d51dea375, type: 3}
+  graphicPicture: {fileID: 0}
+  clickThrough: 0
+  gurbleClip: {fileID: 8300000, guid: 72d1da1fdd67e7a42a884f04271daae5, type: 3}
+  choices:
+  - choiceText: It's pretty cool
+    onChoose:
+      m_PersistentCalls:
+        m_Calls: []
+    nextMessage: {fileID: 11400000, guid: eca00f0efa00db747b20223036afe1dc, type: 2}
+  - choiceText: It's too complicated
+    onChoose:
+      m_PersistentCalls:
+        m_Calls: []
+    nextMessage: {fileID: 11400000, guid: eca00f0efa00db747b20223036afe1dc, type: 2}
+  - choiceText: It's still too simple
+    onChoose:
+      m_PersistentCalls:
+        m_Calls: []
+    nextMessage: {fileID: 11400000, guid: eca00f0efa00db747b20223036afe1dc, type: 2}
