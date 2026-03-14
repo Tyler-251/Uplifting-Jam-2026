@@ -170,7 +170,7 @@ public class TTTManager : MonoBehaviour
             yield break;
         }
 
-        var aiMove = TTTAI.GetAIPlacement(activeBoard, Piece.PieceType.O, .5f - amtToAppendTrickiness);
+        var aiMove = TTTAI.GetAIPlacement(activeBoard, Piece.PieceType.O, .6f - amtToAppendTrickiness);
         if (aiMove != (-1, -1))
         {
             PlaySpotInternal(aiMove.row, aiMove.col, true);
@@ -204,6 +204,11 @@ public class TTTManager : MonoBehaviour
                 playedPiece == Piece.PieceType.X ? xplayed : oplayed,
                 playedPiece == Piece.PieceType.X ? xplayedVolume : oplayedVolume
             );
+
+            if (UltManager.instance != null)
+            {
+                UltManager.instance.ChargeUlt(0.025f);
+            }
 
             if (activeBoard.TryGetWinningLine(out var winStart, out var winEnd, out var winner))
             {
@@ -244,6 +249,17 @@ public class TTTManager : MonoBehaviour
         RecordMatchResult(isDraw: true, winner: Piece.PieceType.None);
     }
 
+    public void MultiplyPot(float multiplier)
+    {
+        if (multiplier <= 0f)
+        {
+            return;
+        }
+
+        potAmount = Mathf.RoundToInt(potAmount * multiplier);
+        UpdatePotDisplay();
+    }
+
     private void ResolveWin(Piece.PieceType winner)
     {
         RecordMatchResult(isDraw: false, winner: winner);
@@ -257,6 +273,11 @@ public class TTTManager : MonoBehaviour
             potAmount = 0;
             UpdatePotDisplay();
             return;
+        }
+
+        if (UltManager.instance != null)
+        {
+            UltManager.instance.ChargeUlt(0.05f);
         }
 
         int payout = activeBoard.GetPlacedPieceCount() + potAmount;

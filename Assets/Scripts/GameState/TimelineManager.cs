@@ -164,6 +164,7 @@ public class TimelineManager : MonoBehaviour
             MusicAudioManager.instance.FadeInMainMusic();
             foreach (var obj in stuffToHideDayTwo)
             {
+                if (obj.GetComponent<UltManager>() != null) continue;
                 obj.SetActive(true);
             }
             tttManager.StartGame();

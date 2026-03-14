@@ -45,10 +45,12 @@ public class JsonToSOChainTool : MonoBehaviour
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private List<SpeakerAssetData> speakerAssets = new List<SpeakerAssetData>();
 
+#if UNITY_EDITOR
     public void OnClick() {
         string jsonText = inputField.text;
         ParseAndSaveDialogue(jsonText);
     }
+#endif
 
     private bool TryGetSpeakerAssets(string speakerTitle, out SpeakerAssetData matchedData)
     {

@@ -174,7 +174,7 @@ public class DialogueManager : MonoBehaviour
 
             if (messageTextField != null)
             {
-                Vector2 offset = profileSprite == null ? new Vector2(-100f, 0f) : Vector2.zero;
+                Vector2 offset = profileSprite == null ? new Vector2(-170f, 0f) : Vector2.zero;
                 messageTextField.rectTransform.anchoredPosition = originalMessageTextPos + offset;
             }
     }
