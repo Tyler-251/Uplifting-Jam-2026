@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64addfd605424b419c547609c6ac00b, type: 3}
   m_Name: GoHome
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeSO
-  index: 4
+  index: 6
   category: 0
   type: 0
   icon: {fileID: -3201610156009431744, guid: 6b61d4e081094da4cb09e12f3701bd78, type: 3}

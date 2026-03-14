@@ -40,6 +40,15 @@ public class TimelineManager : MonoBehaviour
             case 3:
                 StartDayThree();
                 break;
+            case 4:
+                StartDayFour();
+                break;
+            case 5:
+                StartDayFive();
+                break;
+            case 18255:
+                StartDay18255();
+                break;
             default:
                 // Handle unexpected day value
                 break;
@@ -58,6 +67,15 @@ public class TimelineManager : MonoBehaviour
                 break;
             case 3:
                 UpdateDayThree();
+                break;
+            case 4:
+                UpdateDayFour();
+                break;
+            case 5:
+                UpdateDayFive();
+                break;
+            case 18255:
+                UpdateDay18255();
                 break;
             default:
                 // Handle other days or unexpected values
@@ -215,6 +233,7 @@ public class TimelineManager : MonoBehaviour
 
     [Header("Day Three Dialogue")]
     [SerializeField] private MessageSO dayThreeIntro;
+    private bool dayThreeUltUnlocked = false;
     private void StartDayThree()
     {
         PlayerSaveDataManager.instance.SavePlayerData(saveData);
@@ -228,18 +247,156 @@ public class TimelineManager : MonoBehaviour
             MusicAudioManager.instance.FadeInMainMusic();
             foreach (var obj in stuffToHideDayTwo)
             {
+                if (obj.GetComponent<UltManager>() != null) continue;
                 obj.SetActive(true);
             }
             tttManager.StartGame();
-            ShopManager.instance.showShopPanel = true;
-            ShopManager.instance.showXosCounter = true;
-            ShopManager.instance.RenderShopEnvironment();
+            if (ShopManager.instance != null)
+            {
+                ShopManager.instance.showShopPanel = true;
+                ShopManager.instance.showXosCounter = true;
+                ShopManager.instance.RenderShopEnvironment();
+            }
         });
     }
 
     private void UpdateDayThree()
     {
-        // TODO: Add Day Three update logic
+        // Progress Best-Of
+        if (vertBarBehavior.xWins == Mathf.CeilToInt(vertBarBehavior.bestOf/2f) || vertBarBehavior.oWins == Mathf.CeilToInt(vertBarBehavior.bestOf/2f))
+        {
+            vertBarBehavior.NextBestOf();
+        }
+
+        if (dayThreeUltUnlocked)
+        {
+            return;
+        }
+
+        if (saveData == null || saveData.progressionTags == null || DialogueManager.instance == null)
+        {
+            return;
+        }
+
+        if (saveData.progressionTags.Contains("ultimate") && DialogueManager.instance.currentMessage == null)
+        {
+            Debug.Log("Unlocking Ult!");
+            dayThreeUltUnlocked = true;
+            foreach (var obj in stuffToHideDayTwo)
+            {
+                if (obj == null)
+                {
+                    continue;
+                }
+
+                var ultManager = obj.GetComponent<UltManager>();
+                if (ultManager != null)
+                {
+                    obj.SetActive(true);
+                    ultManager.UseUlt();
+                }
+            }
+        }
+    }
+
+#endregion
+#region DayFour
+
+    [Header("Day Four Dialogue")]
+    [SerializeField] private MessageSO dayFourIntro;
+
+    private void StartDayFour()
+    {
+        PlayerSaveDataManager.instance.SavePlayerData(saveData);
+        curtainBehavior.OpenCurtain("Day Four", "5:00 PM", dayFourIntro);
+
+        foreach (var obj in stuffToHideDayTwo)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(false);
+            }
+        }
+        DialogueManager.instance.onDialogueSequenceComplete.AddListener(() =>
+        {
+            //next day
+            saveData.currentDay = 5; // Progress to day 5 (or end of current content)
+            PlayerSaveDataManager.instance.SavePlayerData(saveData);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload scene to progress timeline
+        });
+    }
+
+    private void UpdateDayFour()
+    {
+        // filler
+    }
+
+#endregion
+
+#region DayFive
+
+    [Header("Day Five Dialogue")]
+    [SerializeField] private MessageSO dayFiveIntro;
+
+    private void StartDayFive()
+    {
+        PlayerSaveDataManager.instance.SavePlayerData(saveData);
+        curtainBehavior.OpenCurtain("Day Five", "5:00 PM", dayFiveIntro);
+
+        foreach (var obj in stuffToHideDayTwo)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(false);
+            }
+        }
+        DialogueManager.instance.onDialogueSequenceComplete.AddListener(() =>
+        {
+            //next day
+            saveData.currentDay = 18255; // Progress to day 18255 (or end of current content)
+            PlayerSaveDataManager.instance.SavePlayerData(saveData);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload scene to progress timeline
+        });
+    }
+
+    private void UpdateDayFive()
+    {
+        // filler
+    }
+
+#endregion
+
+#region Day18255
+
+    [Header("Day 18255 Dialogue")]
+    [SerializeField] private MessageSO day18255Intro;
+
+    private void StartDay18255()
+    {
+        PlayerSaveDataManager.instance.SavePlayerData(saveData);
+        curtainBehavior.OpenCurtain("Day 18255", "50 Years Later...", day18255Intro);
+
+        foreach (var obj in stuffToHideDayTwo)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(false);
+            }
+        }
+        DialogueManager.instance.onDialogueSequenceComplete.AddListener(() =>
+        {
+            curtainBehavior.CloseCurtain(() =>
+            {
+                // Reset timeline for new game plus loop
+                PlayerPrefs.DeleteAll();
+                SceneManager.LoadScene("TitleScene"); // Reload scene to progress timeline
+            });
+        });
+    }
+
+    private void UpdateDay18255()
+    {
+        // filler
     }
 
 #endregion

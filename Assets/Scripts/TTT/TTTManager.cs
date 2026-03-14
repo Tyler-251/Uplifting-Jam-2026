@@ -140,26 +140,51 @@ public class TTTManager : MonoBehaviour
             yield break;
         }
 
+        EnsureVertBarReference();
+
+        var acquiredUpgrades = ShopManager.instance != null ? ShopManager.instance.acquiredUpgrades : null;
+
         //Get enemy movespeed upgrades
         float amtToAppendTurnSpeed = 0f;
-        foreach (UpgradeSO upgrade in ShopManager.instance.acquiredUpgrades)
+        if (acquiredUpgrades != null)
         {
-            if (upgrade.category == UpgradeCategory.TurnSpeed && upgrade.type == UpgradeType.Additive)
+            foreach (UpgradeSO upgrade in acquiredUpgrades)
             {
-                amtToAppendTurnSpeed += upgrade.value;
+                if (upgrade == null)
+                {
+                    continue;
+                }
+
+                if (upgrade.category == UpgradeCategory.TurnSpeed && upgrade.type == UpgradeType.Additive)
+                {
+                    amtToAppendTurnSpeed += upgrade.value;
+                }
             }
         }
 
         // Get trickiness upgrades
         float amtToAppendTrickiness = 0f;
-        foreach (UpgradeSO upgrade in ShopManager.instance.acquiredUpgrades)        {
-            if (upgrade.category == UpgradeCategory.Trickiness && upgrade.type == UpgradeType.AdditiveMultiplier)
+        if (acquiredUpgrades != null)
+        {
+            foreach (UpgradeSO upgrade in acquiredUpgrades)
             {
-                amtToAppendTrickiness += upgrade.value / 100f;
+                if (upgrade == null)
+                {
+                    continue;
+                }
+
+                if (upgrade.category == UpgradeCategory.Trickiness && upgrade.type == UpgradeType.AdditiveMultiplier)
+                {
+                    amtToAppendTrickiness += upgrade.value / 100f;
+                }
             }
         }
         // calculate final trickiness multiplier
-        float difficultyHelper = (vertBarBehavior.xWins - vertBarBehavior.oWins) / 100f;
+        float difficultyHelper = 0f;
+        if (vertBarBehavior != null)
+        {
+            difficultyHelper = (vertBarBehavior.xWins - vertBarBehavior.oWins) / 100f;
+        }
 
         isEnemyTakingTurn = true;
         yield return new WaitForSeconds(oldManMoveDelay + amtToAppendTurnSpeed + difficultyHelper);
@@ -303,6 +328,8 @@ public class TTTManager : MonoBehaviour
 
     private void RecordMatchResult(bool isDraw, Piece.PieceType winner)
     {
+        EnsureVertBarReference();
+
         if (vertBarBehavior == null)
         {
             return;
@@ -324,6 +351,14 @@ public class TTTManager : MonoBehaviour
         }
 
         vertBarBehavior.RenderBar();
+    }
+
+    private void EnsureVertBarReference()
+    {
+        if (vertBarBehavior == null)
+        {
+            vertBarBehavior = GameObject.Find("Ratio Bar").GetComponent<VertBarBehavior>();
+        }
     }
 
     private void UpdatePotDisplay()

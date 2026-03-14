@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69498aa934a04754eae86e5d7cd821a5, type: 3}
+  m_Name: Message_1
+  m_EditorClassIdentifier: Assembly-CSharp::MessageSO
+  speakerName: Narrator
+  messageText: Walking over to the park, you find the old man feeding the geese.
+  profilePicture: {fileID: 0}
+  graphicPicture: {fileID: 0}
+  clickThrough: 0
+  gurbleClip: {fileID: 0}
+  choices:
+  - choiceText: '[Walk over and greet him]'
+    onChoose:
+      m_PersistentCalls:
+        m_Calls: []
+    nextMessage: {fileID: 11400000, guid: 7b5d74a9a76e3a24c9f0cd92cc5f69f0, type: 2}

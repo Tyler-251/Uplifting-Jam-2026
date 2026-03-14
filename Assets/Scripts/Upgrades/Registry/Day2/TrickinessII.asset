@@ -19,10 +19,11 @@ MonoBehaviour:
   upgradeName: Trickiness II
   description: '+5% Trickiness: Gives you a more of a slight edge against the old
     man.'
-  cost: 50
+  cost: 35
   value: 5
   progressionTags: 
   xosRequirement: 0
+  progressDay: 0
   optionalMessageTrigger: {fileID: 11400000, guid: e176dc20043bcf842882fd94b339c303, type: 2}
   requiredUpgrades:
   - {fileID: 11400000, guid: 854e999de053a4f4fa1a77273c389688, type: 2}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c64addfd605424b419c547609c6ac00b, type: 3}
   m_Name: TurnSpeedII
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeSO
-  index: 3
+  index: 5
   category: 0
   type: 0
   icon: {fileID: -5891973374340002633, guid: 3067627f62050ae4089cc9a0ff6a1ca6, type: 3}
@@ -22,6 +22,7 @@ MonoBehaviour:
   value: -0.25
   progressionTags: 
   xosRequirement: 0
+  progressDay: 0
   optionalMessageTrigger: {fileID: 11400000, guid: c827a5c00b8567b40a0c364bacf08b91, type: 2}
   requiredUpgrades:
   - {fileID: 11400000, guid: 6b206362b3e87484a98b5dee4c6b237c, type: 2}

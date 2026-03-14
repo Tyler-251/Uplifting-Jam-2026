@@ -39,7 +39,41 @@ public class DaySwitcher : MonoBehaviour
     {
         PlayerSaveData saveData = PlayerSaveDataManager.instance.LoadPlayerData();
         saveData.currentDay = 3;
+        saveData.progressionTags = new List<string>();
         saveData.unlockedUpgrades = new List<UpgradeSO>(dayTwoUpgrades); // Simulate having all day two upgrades for testing day three
+        PlayerSaveDataManager.instance.SavePlayerData(saveData);
+        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+    }
+
+    [ContextMenu("Switch to Day Four")]
+    public void SwitchToDayFour()
+    {
+        PlayerSaveData saveData = PlayerSaveDataManager.instance.LoadPlayerData();
+        saveData.currentDay = 4;
+        saveData.progressionTags = new List<string>();
+        saveData.unlockedUpgrades = new List<UpgradeSO>(dayTwoUpgrades);
+        PlayerSaveDataManager.instance.SavePlayerData(saveData);
+        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+    }
+
+    [ContextMenu("Switch to Day Five")]
+    public void SwitchToDayFive()
+    {
+        PlayerSaveData saveData = PlayerSaveDataManager.instance.LoadPlayerData();
+        saveData.currentDay = 5;
+        saveData.progressionTags = new List<string>();
+        saveData.unlockedUpgrades = new List<UpgradeSO>(dayTwoUpgrades);
+        PlayerSaveDataManager.instance.SavePlayerData(saveData);
+        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+    }
+
+    [ContextMenu("Switch to Day 18255")]
+    public void SwitchToDay18255()
+    {
+        PlayerSaveData saveData = PlayerSaveDataManager.instance.LoadPlayerData();
+        saveData.currentDay = 18255;
+        saveData.progressionTags = new List<string>();
+        saveData.unlockedUpgrades = new List<UpgradeSO>(dayTwoUpgrades);
         PlayerSaveDataManager.instance.SavePlayerData(saveData);
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }

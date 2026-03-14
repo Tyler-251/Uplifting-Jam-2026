@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64addfd605424b419c547609c6ac00b, type: 3}
+  m_Name: Ultimate
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeSO
+  index: 7
+  category: 0
+  type: 0
+  icon: {fileID: -3919701687602107211, guid: bea733e5feb39d14da583047f04c3dcb, type: 3}
+  upgradeName: Unlock Ultimate
+  description: 
+  cost: 20
+  value: 0
+  progressionTags: ultimate
+  xosRequirement: 0
+  progressDay: 0
+  optionalMessageTrigger: {fileID: 11400000, guid: a6c939d2ab66654498b3f12a20147186, type: 2}
+  requiredUpgrades: []
+  requiredDays: 03000000
+  requiredProgressionTags: []

@@ -4,11 +4,6 @@ using System.Collections;
 
 public class VertBarBehavior : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
     public GameObject fullBar;
     public GameObject xBar;
     public GameObject oBar;

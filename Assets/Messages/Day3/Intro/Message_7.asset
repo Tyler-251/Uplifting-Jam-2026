@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69498aa934a04754eae86e5d7cd821a5, type: 3}
+  m_Name: Message_7
+  m_EditorClassIdentifier: Assembly-CSharp::MessageSO
+  speakerName: Old Man
+  messageText: I've been called many different names by many different people. "Old
+    man" is just fine.
+  profilePicture: {fileID: -1920826564622356544, guid: 42e0ccb7c033c0347be0db5d51dea375, type: 3}
+  graphicPicture: {fileID: 0}
+  clickThrough: 0
+  gurbleClip: {fileID: 8300000, guid: 72d1da1fdd67e7a42a884f04271daae5, type: 3}
+  choices:
+  - choiceText: Ok, old man.
+    onChoose:
+      m_PersistentCalls:
+        m_Calls: []
+    nextMessage: {fileID: 11400000, guid: 924eec3375e55ae49a7c5007763f281f, type: 2}
